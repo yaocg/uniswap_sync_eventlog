@@ -115,12 +115,12 @@ if __name__ == "__main__":
     default_eth_http = "http://127.0.0.1:8545"
     default_from_block = "latest"
     default_to_block = "latest"
-    default_pair_address = None
+    default_pair_address = ""
 
     usage = "usage: python3 main.py [options] arg"
     parser = OptionParser(usage=usage,description="command descibe")
     parser.add_option("-H", "--eth_http", dest="eth_http", default=f"{default_eth_http}", help=f"ethereum http, default:{default_eth_http}")
-    parser.add_option("-a", "--pair_address", dest="pair_address", default=f"{default_pair_address}", help=f"pair contract adress, default:{default_pair_address}")
+    parser.add_option("-a", "--pair_address", dest="pair_address", default=default_pair_address, help=f"pair contract adress, default:{default_pair_address}")
     parser.add_option("-f", "--from_block", dest="from_block", default=f"{default_from_block}", help=f"Integer block number, or “latest”, default:{default_from_block}")
     parser.add_option("-t", "--to_block", dest="to_block", default=f"{default_to_block}", help=f"Integer block number, or “latest”, default:{default_to_block}")
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     t = SyncEventLog(
             eth_http=options.eth_http,
-            pair_address=Web3.toChecksumAddress(options.pair_address),
+            pair_address= Web3.toChecksumAddress(options.pair_address) if options.pair_address else "",
             from_block= "latest" if options.from_block.lower() == "latest" else int(options.from_block),
             to_block= "latest" if options.to_block.lower() == "latest" else int(options.to_block),
             )
