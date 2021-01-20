@@ -129,8 +129,8 @@ if __name__ == "__main__":
     t = SyncEventLog(
             eth_http=options.eth_http,
             pair_address= Web3.toChecksumAddress(options.pair_address) if options.pair_address else "",
-            from_block= "latest" if options.from_block.lower() == "latest" else int(options.from_block),
-            to_block= "latest" if options.to_block.lower() == "latest" else int(options.to_block),
+            from_block= options.to_block.lower() if options.from_block.lower() in ["latest", "pending", "earliest"] else int(options.from_block),
+            to_block= options.to_block.lower() if options.to_block.lower() in ["latest", "pending", "earliest"] else int(options.to_block),
             )
     t.start()
     t.join()
